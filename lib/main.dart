@@ -825,84 +825,261 @@ class CartaPage extends StatelessWidget {
 // NUESTRA HISTORIA
 // ============================================================
 
-class HistoriaPage extends StatelessWidget {
+class HistoriaPage extends StatefulWidget {
   const HistoriaPage({super.key});
 
-  final List<Map<String, dynamic>> momentos = const [
-    {
-      'icono': Icons.school,
-      'fecha': 'El comienzo',
-      'titulo': 'Nos conocimos en la prepa 🏫',
-      'texto':
-      'Nos conocimos en la prepa, sin imaginar que aquella etapa terminaría siendo el comienzo de una de las historias más bonitas de mi vida.',
-    },
-    {
-      'icono': Icons.mail,
-      'fecha': 'Último semestre',
-      'titulo': 'La carta 💌',
-      'texto':
-      'Todo comenzó durante el último semestre, cuando empezamos a hablar más. Todo tuvo un comienzo bastante curioso: una carta. Yo pensé que en esa carta ella había puesto que yo le gustaba.',
-    },
-    {
-      'icono': Icons.favorite,
-      'fecha': 'Un sentimiento que ya estaba ahí',
-      'titulo': 'Ella ya me gustaba ❤️',
-      'texto':
-      'La verdad es que para ese entonces ella ya me gustaba. Solo que no me animaba a hablarle porque tenía miedo. No sabía qué podía pasar si me atrevía a dar ese primer paso.',
-    },
-    {
-      'icono': Icons.auto_awesome,
-      'fecha': 'Un día en el salón',
-      'titulo': 'Ese momento de "Wow..." ✨',
-      'texto':
-      'Recuerdo un día en que llegaste al salón y te veías tan hermosa que lo único que pude pensar fue: "Wow...". Fue uno de esos momentos que parecen pequeños, pero que se quedan para siempre en la memoria.',
-    },
-    {
-      'icono': Icons.flight_takeoff,
-      'fecha': 'Cuando me fui de viaje',
-      'titulo': 'También me extrañaste 🥺',
-      'texto':
-      'Después me fui de viaje y fue entonces cuando tú comenzaste a extrañarme mucho. Creo que ese momento nos ayudó a los dos a darnos cuenta de que lo que sentíamos era algo más que una simple amistad.',
-    },
-    {
-      'icono': Icons.favorite,
-      'fecha': '18 de diciembre de 2025',
-      'titulo': 'El día que comenzamos ❤️',
-      'texto':
-      'Y llegó el día que cambió nuestra historia. El 18 de diciembre de 2025 comenzamos nuestra relación. Desde ese momento empezamos a escribir juntos una historia completamente nueva.',
-    },
-    {
-      'icono': Icons.sports_esports,
-      'fecha': 'Nuestros primeros momentos',
-      'titulo': 'Los juegos 🎮',
-      'texto':
-      'Después llegaron nuestros primeros momentos juntos, como aquel día en los juegos. Son momentos que quizá parecen sencillos, pero que para mí se convirtieron en recuerdos que quiero conservar para siempre.',
-    },
-    {
-      'icono': Icons.celebration,
-      'fecha': 'Navidad',
-      'titulo': 'Nuestra primera Navidad 🎄',
-      'texto':
-      'Y llegó Navidad. Otro momento que pudimos compartir y que hizo que nuestra historia siguiera creciendo poquito a poquito.',
-    },
-    {
-      'icono': Icons.nightlight_round,
-      'fecha': 'Año Nuevo',
-      'titulo': 'Comenzando un nuevo año juntos 🎆',
-      'texto':
-      'Después llegó Año Nuevo. Terminábamos un año y comenzábamos otro, pero esta vez con algo muy especial: teníamos el uno al otro.',
-    },
-    {
-      'icono': Icons.cake,
-      'fecha': '22 de agosto',
-      'titulo': 'Tus 19 años 🎂',
-      'texto':
-      'Y ahora estoy aquí celebrando contigo tus 19 años. Espero que este nuevo año de tu vida esté lleno de momentos bonitos, sueños cumplidos y muchas razones para sonreír.',
-    },
-  ];
+  @override
+  State<HistoriaPage> createState() => _HistoriaPageState();
+}
+
+class _HistoriaPageState extends State<HistoriaPage> {
+  final DateTime inicioRelacion = DateTime(2024, 12, 18);
+
+  String tiempoJuntos() {
+    final ahora = DateTime.now();
+
+    int anios = ahora.year - inicioRelacion.year;
+    int meses = ahora.month - inicioRelacion.month;
+    int dias = ahora.day - inicioRelacion.day;
+
+    if (dias < 0) {
+      meses--;
+
+      final mesAnterior = DateTime(
+        ahora.year,
+        ahora.month,
+        0,
+      );
+
+      dias += mesAnterior.day;
+    }
+
+    if (meses < 0) {
+      anios--;
+      meses += 12;
+    }
+
+    return '$anios años, $meses meses y $dias días';
+  }
 
   @override
   Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(22),
+      children: [
+        const Text(
+          'Nuestra historia ✨',
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: rojo,
+          ),
+          textAlign: TextAlign.center,
+        ),
+
+        const SizedBox(height: 15),
+
+        Container(
+          padding: const EdgeInsets.all(22),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [
+                rosa,
+                rojo,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(25),
+            boxShadow: [
+              BoxShadow(
+                color: rosa.withOpacity(0.3),
+                blurRadius: 18,
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              const Icon(
+                Icons.favorite,
+                color: Colors.white,
+                size: 55,
+              ),
+
+              const SizedBox(height: 12),
+
+              const Text(
+                'Nuestra historia comenzó',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
+
+              const SizedBox(height: 8),
+
+              const Text(
+                '18 de diciembre de 2024 ❤️',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 23,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+
+              const SizedBox(height: 15),
+
+              Text(
+                tiempoJuntos(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+
+              const SizedBox(height: 5),
+
+              const Text(
+                'y seguimos contando... ❤️',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 16,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 30),
+
+        historiaItem(
+          '❤️',
+          'El comienzo',
+          'Nos conocimos en la prepa y comenzamos a hablar durante el último semestre. Todo empezó con una carta y con un sentimiento que yo ya tenía, aunque por miedo todavía no me animaba a acercarme a ti.',
+        ),
+
+        historiaItem(
+          '✨',
+          'Cuando me di cuenta',
+          'Recuerdo ese día en que llegaste al salón muy hermosa. Fue uno de esos momentos en los que simplemente pensé: wow. Aunque ya me gustabas, ese día sentí todavía más claro lo que sentía por ti.',
+        ),
+
+        historiaItem(
+          '🥺',
+          'Cuando me extrañaste',
+          'También me di cuenta de que algo estaba cambiando cuando me fui de viaje y tú me extrañabas mucho. Fue bonito saber que mi ausencia también se sentía de tu lado.',
+        ),
+
+        historiaItem(
+          '🎄',
+          '18 de diciembre de 2024',
+          'Ese día comenzó oficialmente nuestra historia. Desde entonces hemos compartido momentos que quiero guardar para siempre, desde los juegos hasta Navidad y Año Nuevo.',
+        ),
+
+        historiaItem(
+          '💞',
+          'El día que te pedí ser mi novia',
+          'Ese momento siempre va a tener un lugar especial en mi corazón. Fue el comienzo de algo que para mí significa muchísimo y que me hace muy feliz.',
+        ),
+
+        historiaItem(
+          '👀',
+          'Lo que amo de ti',
+          'Tus ojos, tu sonrisa, tu boca, tus manos, tu pelo, tu forma de ser y cada pequeño detalle que te hace ser tú. Me encantas completa, tal como eres.',
+        ),
+
+        historiaItem(
+          '❤️',
+          'Lo que siento por ti',
+          'Siento cariño, orgullo, amor y muchísima felicidad de tenerte conmigo. Me haces sentir afortunado de poder compartir una parte de mi vida contigo.',
+        ),
+
+        historiaItem(
+          '🌸',
+          'Lo que quiero que recuerdes',
+          'Quiero que nunca olvides cuánto te amo y lo importante que eres para mí. Esta aplicación es solamente una pequeña forma de guardar algunos de todos los sentimientos que tengo por ti.',
+        ),
+
+        const SizedBox(height: 15),
+
+        const Text(
+          'Y esta historia todavía tiene muchísimos capítulos por escribir... ❤️',
+          style: TextStyle(
+            fontSize: 19,
+            fontStyle: FontStyle.italic,
+            color: rojo,
+          ),
+          textAlign: TextAlign.center,
+        ),
+
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Widget historiaItem(
+      String emoji,
+      String titulo,
+      String texto,
+      ) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 18),
+      elevation: 3,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              emoji,
+              style: const TextStyle(
+                fontSize: 35,
+              ),
+            ),
+
+            const SizedBox(width: 15),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    titulo,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: rojo,
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  Text(
+                    texto,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      height: 1.5,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+  @override
+  Widget build(BuildContext context, dynamic momentos) {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(20, 25, 20, 40),
       child: Column(
@@ -1070,7 +1247,7 @@ class HistoriaPage extends StatelessWidget {
       ),
     );
   }
-}
+
 
 // ============================================================
 // TARJETA DE CADA MOMENTO
